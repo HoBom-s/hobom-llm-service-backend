@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { MicroserviceOptions, Transport } from "@nestjs/microservices";
 import { ValidationPipe } from "@nestjs/common";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Logger } from "nestjs-pino";
 import { join } from "path";
 import { AppModule } from "./app.module";
@@ -34,6 +35,15 @@ async function bootstrap() {
       ],
     },
   });
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle("HoBom LLM Service")
+    .setDescription("CPPG Privacy-Law LLM API")
+    .setVersion("1.0")
+    .addApiKey({ type: "apiKey", name: "x-api-key", in: "header" }, "api-key")
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup("api-docs", app, document);
 
   await app.startAllMicroservices();
   await app.listen(Number(process.env.HOBOM_REST_PORT ?? 3000));
