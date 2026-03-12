@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.52.0",
+    "@google/generative-ai": "^0.24.1",
     "@grpc/grpc-js": "^1.13.4",
     "@grpc/proto-loader": "^0.7.15",
     "@nestjs/common": "^11.1.5",

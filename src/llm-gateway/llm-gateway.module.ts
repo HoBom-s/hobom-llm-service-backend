@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { DIToken } from "../shared/di/token.di";
-import { ClaudeClientAdapter } from "./adapters/out/claude-client.adapter";
+import { GeminiClientAdapter } from "./adapters/out/gemini-client.adapter";
 import { GenerateStudyMaterialService } from "./application/use-cases/generate-study-material.service";
 import { AskQuestionService } from "./application/use-cases/ask-question.service";
 import { StudyMaterialGrpcController } from "./adapters/in/study-material.grpc-controller";
@@ -16,7 +16,7 @@ import { AskQuestionRestController } from "./adapters/in/ask-question.rest-contr
   providers: [
     {
       provide: DIToken.LlmGatewayModule.LlmClientPort,
-      useClass: ClaudeClientAdapter,
+      useClass: GeminiClientAdapter,
     },
     {
       provide: DIToken.LlmGatewayModule.GenerateStudyMaterialUseCase,

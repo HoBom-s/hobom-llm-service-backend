@@ -1,6 +1,6 @@
 # hobom-llm-service-backend
 
-Claude API를 활용한 LLM 게이트웨이 서비스. gRPC + REST 하이브리드 앱으로 동작합니다.
+Google Gemini API를 활용한 LLM 게이트웨이 서비스. gRPC + REST 하이브리드 앱으로 동작합니다.
 
 ---
 
@@ -10,9 +10,9 @@ Claude API를 활용한 LLM 게이트웨이 서비스. gRPC + REST 하이브리�
                     ┌────────────────────────────────┐
                     │  hobom-llm-service-backend      │
                     │                                │
-  gRPC :50052 ──────┤  StudyMaterialService.Generate │──── Claude API
+  gRPC :50052 ──────┤  StudyMaterialService.Generate │──── Gemini API
                     │  StudyMaterialService.Ask       │
-  REST :3000  ──────┤  POST /api/v1/ask              │──── Claude API
+  REST :3000  ──────┤  POST /api/v1/ask              │──── Gemini API
                     └────────────────────────────────┘
 ```
 
@@ -42,7 +42,7 @@ Claude API를 활용한 LLM 게이트웨이 서비스. gRPC + REST 하이브리�
 
 | Variable            | Required | Default   | Description                    |
 | ------------------- | -------- | --------- | ------------------------------ |
-| `ANTHROPIC_API_KEY` | Yes      | -         | Claude API key                 |
+| `GOOGLE_GEMINI_API_KEY` | Yes  | -         | Google Gemini API key          |
 | `HOBOM_GRPC_API_KEY`| Yes      | -         | gRPC/REST 인증 키 (공용)       |
 | `HOBOM_GRPC_HOST`   | No       | `0.0.0.0` | gRPC 바인드 주소               |
 | `HOBOM_GRPC_PORT`   | No       | `50052`   | gRPC 포트                      |
