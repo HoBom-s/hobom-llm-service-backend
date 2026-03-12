@@ -97,8 +97,14 @@ export class ClaudeClientAdapter implements LlmClientPort {
       throw new Error("LLM 응답에서 텍스트를 찾을 수 없어요.");
     }
 
+    let raw = textBlock.text.trim();
+    const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (fenced) {
+      raw = fenced[1].trim();
+    }
+
     try {
-      return JSON.parse(textBlock.text) as T;
+      return JSON.parse(raw) as T;
     } catch (error) {
       this.logger.error(
         `LLM 응답 파싱 실패: ${textBlock.text}`,
