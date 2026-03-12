@@ -25,11 +25,11 @@ async function bootstrap() {
       protoPath: [
         join(
           __dirname,
-          "../../hobom-buf-proto/llm/v1/generate-study-material.proto",
+          "../hobom-buf-proto/llm/v1/generate-study-material.proto",
         ),
         join(
           __dirname,
-          "../../hobom-buf-proto/llm/v1/ask-question.proto",
+          "../hobom-buf-proto/llm/v1/ask-question.proto",
         ),
       ],
     },
