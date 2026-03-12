@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsArray, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsString, MaxLength, ValidateNested } from "class-validator";
 
 export class ArticleDto {
   @ApiProperty({ example: "제39조의3" })
@@ -46,6 +46,7 @@ export class AskQuestionRequestDto {
       "개인정보 이동권이 새로 도입됐는데, 기업 입장에서 어떤 준비가 필요한가요?",
   })
   @IsString()
+  @MaxLength(2000)
   question: string;
 
   @ApiProperty({ type: [ArticleDto] })

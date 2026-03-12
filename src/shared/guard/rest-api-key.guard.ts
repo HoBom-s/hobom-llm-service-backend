@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { timingSafeEqual } from "crypto";
 
 @Injectable()
 export class RestApiKeyGuard implements CanActivate {
@@ -16,7 +17,11 @@ export class RestApiKeyGuard implements CanActivate {
     const expected =
       this.configService.getOrThrow<string>("HOBOM_GRPC_API_KEY");
 
-    if (apiKey == null || apiKey !== expected) {
+    if (
+      apiKey == null ||
+      apiKey.length !== expected.length ||
+      !timingSafeEqual(Buffer.from(apiKey), Buffer.from(expected))
+    ) {
       throw new UnauthorizedException("Invalid API key");
     }
 
