@@ -25,6 +25,6 @@ COPY --from=builder /app/dist ./dist
 # proto for gRPC
 COPY hobom-buf-proto ./hobom-buf-proto
 
-EXPOSE 50052
+EXPOSE 50052 3000
 
 CMD ["node", "dist/main.js"]
