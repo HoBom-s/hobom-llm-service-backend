@@ -41,7 +41,7 @@ export class GeminiClientAdapter implements LlmClientPort {
     }[];
   }> {
     const model = this.genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       systemInstruction: STUDY_MATERIAL_SYSTEM_PROMPT,
     });
 
@@ -70,7 +70,7 @@ export class GeminiClientAdapter implements LlmClientPort {
     referencedArticles: string[];
   }> {
     const model = this.genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       systemInstruction: ASK_QUESTION_SYSTEM_PROMPT,
     });
 
