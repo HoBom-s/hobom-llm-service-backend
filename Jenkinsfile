@@ -8,5 +8,6 @@ hobomPipeline(
   envPath:        '/etc/hobom-dev/dev-hobom-llm-service-backend/.env',
   addHost:        true,
   submodules:     true,
+  extraPorts:     ['3000:3000'],
   smokeCheckPath: null
 )
