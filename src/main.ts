@@ -24,15 +24,12 @@ async function bootstrap() {
       url: `${process.env.HOBOM_GRPC_HOST ?? "0.0.0.0"}:${process.env.HOBOM_GRPC_PORT ?? "50052"}`,
       package: ["llm"],
       protoPath: [
-        join(
-          __dirname,
-          "../hobom-buf-proto/llm/v1/generate-study-material.proto",
-        ),
-        join(
-          __dirname,
-          "../hobom-buf-proto/llm/v1/ask-question.proto",
-        ),
+        "llm/v1/generate-study-material.proto",
+        "llm/v1/ask-question.proto",
       ],
+      loader: {
+        includeDirs: [join(__dirname, "../hobom-buf-proto")],
+      },
     },
   });
 
