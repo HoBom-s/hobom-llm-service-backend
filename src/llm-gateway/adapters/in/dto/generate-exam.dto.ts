@@ -43,7 +43,7 @@ class ExamQuestionDto {
   @ApiProperty({ example: "개인정보 보호법 총칙 및 개인정보 보호 원칙" })
   subject: string;
 
-  @ApiProperty({ example: "OX" })
+  @ApiProperty({ example: "OX", enum: ["OX", "MULTIPLE_CHOICE"] })
   type: string;
 
   @ApiProperty({ example: "개인정보처리자는 정보주체의 동의 없이 ..." })

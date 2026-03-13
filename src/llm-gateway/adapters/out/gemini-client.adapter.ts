@@ -14,6 +14,7 @@ import {
   EXAM_GENERATION_SYSTEM_PROMPT,
   buildExamGenerationUserPrompt,
 } from "../../../prompt-registry/exam-generation.prompt";
+import { validateExamQuestions } from "../../application/exam-question.validator";
 
 @Injectable()
 export class GeminiClientAdapter implements LlmClientPort {
@@ -108,7 +109,10 @@ export class GeminiClientAdapter implements LlmClientPort {
       buildExamGenerationUserPrompt(articles, subject, questionCount),
     );
 
-    return this.parseJsonResponse(result.response.text());
+    const parsed = this.parseJsonResponse<{ questions: unknown[] }>(
+      result.response.text(),
+    );
+    return { questions: validateExamQuestions(parsed, questionCount) };
   }
 
   private parseJsonResponse<T>(text: string): T {
