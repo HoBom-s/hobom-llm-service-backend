@@ -38,7 +38,12 @@ export const STUDY_MATERIAL_SYSTEM_PROMPT = `당신은 CPPG(개인정보보호 �
 - 벌칙/과태료 변경은 반드시 포함`;
 
 export function buildStudyMaterialUserPrompt(
-  changes: { articleNo: string; changeType: string; before: string; after: string }[],
+  changes: {
+    articleNo: string;
+    changeType: string;
+    before: string;
+    after: string;
+  }[],
 ): string {
   const formatted = changes
     .map(

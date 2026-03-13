@@ -7,5 +7,6 @@ export class DIToken {
       "GenerateStudyMaterialUseCase",
     );
     public static AskQuestionUseCase = this.register("AskQuestionUseCase");
+    public static GenerateExamUseCase = this.register("GenerateExamUseCase");
   };
 }

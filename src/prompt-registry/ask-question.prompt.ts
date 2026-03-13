@@ -17,7 +17,12 @@ export const ASK_QUESTION_SYSTEM_PROMPT = `당신은 CPPG(개인정보보호 전
 export function buildAskQuestionUserPrompt(
   question: string,
   articles: { articleNo: string; articleTitle: string; content: string }[],
-  recentChanges: { articleNo: string; changeType: string; before: string; after: string }[],
+  recentChanges: {
+    articleNo: string;
+    changeType: string;
+    before: string;
+    after: string;
+  }[],
 ): string {
   const articleContext =
     articles.length > 0

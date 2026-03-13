@@ -10,6 +10,10 @@ import {
   ASK_QUESTION_SYSTEM_PROMPT,
   buildAskQuestionUserPrompt,
 } from "../../../prompt-registry/ask-question.prompt";
+import {
+  EXAM_GENERATION_SYSTEM_PROMPT,
+  buildExamGenerationUserPrompt,
+} from "../../../prompt-registry/exam-generation.prompt";
 
 @Injectable()
 export class GeminiClientAdapter implements LlmClientPort {
@@ -81,6 +85,32 @@ export class GeminiClientAdapter implements LlmClientPort {
     return this.parseJsonResponse(result.response.text());
   }
 
+  public async generateExamQuestions(
+    articles: { articleNo: string; articleTitle: string; content: string }[],
+    subject: string,
+    questionCount: number,
+  ): Promise<{
+    questions: {
+      subject: string;
+      type: string;
+      question: string;
+      choices: string[];
+      answer: string;
+      explanation: string;
+    }[];
+  }> {
+    const model = this.genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      systemInstruction: EXAM_GENERATION_SYSTEM_PROMPT,
+    });
+
+    const result = await model.generateContent(
+      buildExamGenerationUserPrompt(articles, subject, questionCount),
+    );
+
+    return this.parseJsonResponse(result.response.text());
+  }
+
   private parseJsonResponse<T>(text: string): T {
     let raw = text.trim();
     const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -91,10 +121,7 @@ export class GeminiClientAdapter implements LlmClientPort {
     try {
       return JSON.parse(raw) as T;
     } catch (error) {
-      this.logger.error(
-        `LLM 응답 파싱 실패: ${text}`,
-        (error as Error).stack,
-      );
+      this.logger.error(`LLM 응답 파싱 실패: ${text}`, (error as Error).stack);
       throw new Error("LLM 응답을 파싱할 수 없어요.");
     }
   }

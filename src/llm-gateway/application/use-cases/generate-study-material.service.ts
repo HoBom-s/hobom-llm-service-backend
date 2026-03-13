@@ -4,9 +4,7 @@ import { LlmClientPort } from "../../domain/ports/out/llm-client.port";
 import { DIToken } from "../../../shared/di/token.di";
 
 @Injectable()
-export class GenerateStudyMaterialService
-  implements GenerateStudyMaterialUseCase
-{
+export class GenerateStudyMaterialService implements GenerateStudyMaterialUseCase {
   constructor(
     @Inject(DIToken.LlmGatewayModule.LlmClientPort)
     private readonly llmClientPort: LlmClientPort,

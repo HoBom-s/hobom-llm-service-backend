@@ -35,4 +35,19 @@ export interface LlmClientPort {
     answer: string;
     referencedArticles: string[];
   }>;
+
+  generateExamQuestions(
+    articles: { articleNo: string; articleTitle: string; content: string }[],
+    subject: string,
+    questionCount: number,
+  ): Promise<{
+    questions: {
+      subject: string;
+      type: string;
+      question: string;
+      choices: string[];
+      answer: string;
+      explanation: string;
+    }[];
+  }>;
 }
