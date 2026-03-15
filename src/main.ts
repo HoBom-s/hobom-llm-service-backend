@@ -28,7 +28,7 @@ async function bootstrap() {
         "llm/v1/ask-question.proto",
       ],
       loader: {
-        includeDirs: [join(__dirname, "../hobom-buf-proto")],
+        includeDirs: [join(__dirname, "../proto")],
       },
     },
   });
