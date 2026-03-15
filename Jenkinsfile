@@ -8,5 +8,6 @@ hobomPipeline(
   envPath:        '/etc/hobom-dev/dev-hobom-llm-service-backend/.env',
   addHost:        true,
   submodules:     false,
+  extraVolumes:   ['/home/infra-admin/certs:/etc/grpc-tls:ro'],
   smokeCheckPath: null
 )
