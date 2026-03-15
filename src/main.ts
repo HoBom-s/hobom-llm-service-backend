@@ -1,10 +1,35 @@
+import { readFileSync, existsSync } from "fs";
 import { NestFactory } from "@nestjs/core";
 import { MicroserviceOptions, Transport } from "@nestjs/microservices";
 import { ValidationPipe } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Logger } from "nestjs-pino";
 import { join } from "path";
+import { ServerCredentials } from "@grpc/grpc-js";
 import { AppModule } from "./app.module";
+
+function buildGrpcCredentials(): ServerCredentials | undefined {
+  const certPath = process.env.HOBOM_GRPC_TLS_CERT;
+  const keyPath = process.env.HOBOM_GRPC_TLS_KEY;
+
+  if (!certPath || !keyPath) {
+    return undefined;
+  }
+
+  if (!existsSync(certPath) || !existsSync(keyPath)) {
+    console.warn(
+      `TLS cert/key not found (cert=${certPath}, key=${keyPath}), falling back to insecure`,
+    );
+    return undefined;
+  }
+
+  return ServerCredentials.createSsl(null, [
+    {
+      cert_chain: readFileSync(certPath),
+      private_key: readFileSync(keyPath),
+    },
+  ]);
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
@@ -30,6 +55,7 @@ async function bootstrap() {
       loader: {
         includeDirs: [join(__dirname, "../proto")],
       },
+      credentials: buildGrpcCredentials(),
     },
   });
 
