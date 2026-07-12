@@ -9,5 +9,7 @@ hobomPipeline(
   addHost:        true,
   submodules:     false,
   extraVolumes:   ['/home/infra-admin/certs:/etc/grpc-tls:ro'],
-  smokeCheckPath: null
+  smokeCheckPath: null,
+  liveHostPort:   '50063',
+  liveEnvPath:    '/etc/hobom-live/live-hobom-llm-service-backend/.env'
 )
